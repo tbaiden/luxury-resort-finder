@@ -1,0 +1,309 @@
+[
+  {
+    "id": "soneva-jani",
+    "slug": "soneva-jani",
+    "name": "Soneva Jani",
+    "country": "Maldives",
+    "region": "Noonu Atoll",
+    "destinationType": "ultra_island",
+    "nightlyPriceLow": 2500,
+    "nightlyPriceHigh": 4500,
+    "currency": "GBP",
+    "priceNotes": "Typical villa pricing varies by season and board basis.",
+    "packageOptions": [
+      {
+        "type": "breakfast",
+        "label": "Breakfast included",
+        "description": "Daily breakfast with villa stay."
+      },
+      {
+        "type": "half_board",
+        "label": "Half board",
+        "description": "Breakfast and dinner included."
+      }
+    ],
+    "peakSeasonMonths": [1, 2, 3, 12],
+    "shoulderSeasonMonths": [4, 5, 11],
+    "offPeakSeasonMonths": [6, 7, 8, 9, 10],
+    "seasonNotes": "Dry season offers the best sunshine and calm seas; green season can bring better value.",
+    "flightTimeFromLondonHours": 13,
+    "nearestAirport": "Velana International Airport",
+    "transferType": "seaplane",
+    "transferTimeMinutes": 45,
+    "officialWebsite": "https://soneva.com/resorts/soneva-jani/",
+    "heroImageUrl": "/resorts/placeholder.jpg",
+    "galleryImageUrls": [],
+    "bookingHint": "Ideal for honeymooners and once-in-a-lifetime luxury trips.",
+    "tags": ["overwater", "private_pool", "honeymoon"],
+    "isAdultsOnly": false,
+    "minStayNights": 3
+  },
+  {
+    "id": "north-island-seychelles",
+    "slug": "north-island-seychelles",
+    "name": "North Island, Seychelles",
+    "country": "Seychelles",
+    "region": "Private Island",
+    "destinationType": "ultra_island",
+    "nightlyPriceLow": 3000,
+    "nightlyPriceHigh": 5000,
+    "currency": "GBP",
+    "priceNotes": "Rates vary with villa category and inclusions.",
+    "packageOptions": [
+      {
+        "type": "full_board",
+        "label": "Full board",
+        "description": "Meals included throughout the stay."
+      },
+      {
+        "type": "all_inclusive",
+        "label": "All inclusive",
+        "description": "Meals and selected experiences included."
+      }
+    ],
+    "peakSeasonMonths": [4, 5, 10, 11],
+    "shoulderSeasonMonths": [1, 2, 3, 12],
+    "offPeakSeasonMonths": [6, 7, 8, 9],
+    "seasonNotes": "Shoulder periods often combine good weather with slightly better availability.",
+    "flightTimeFromLondonHours": 11,
+    "nearestAirport": "Seychelles International Airport",
+    "transferType": "helicopter",
+    "transferTimeMinutes": 20,
+    "officialWebsite": "https://www.north-island.com/",
+    "heroImageUrl": "/resorts/placeholder.jpg",
+    "galleryImageUrls": [],
+    "bookingHint": "Best suited to ultra-luxury travellers wanting privacy and barefoot elegance.",
+    "tags": ["private_island", "all_villa", "romantic"],
+    "isAdultsOnly": false,
+    "minStayNights": 3
+  },
+  {
+    "id": "amanoi",
+    "slug": "amanoi",
+    "name": "Amanoi",
+    "country": "Vietnam",
+    "region": "Vinh Hy Bay",
+    "destinationType": "luxury_5_star",
+    "nightlyPriceLow": 1400,
+    "nightlyPriceHigh": 2200,
+    "currency": "GBP",
+    "priceNotes": "Pricing depends on pavilion or villa choice.",
+    "packageOptions": [
+      {
+        "type": "breakfast",
+        "label": "Breakfast included",
+        "description": "Daily breakfast with accommodation."
+      },
+      {
+        "type": "wellness",
+        "label": "Wellness package",
+        "description": "Includes selected wellness treatments and meals."
+      }
+    ],
+    "peakSeasonMonths": [1, 2, 3, 4],
+    "shoulderSeasonMonths": [5, 6, 12],
+    "offPeakSeasonMonths": [7, 8, 9, 10, 11],
+    "seasonNotes": "Drier months are most popular; summer and early autumn may be wetter.",
+    "flightTimeFromLondonHours": 16,
+    "nearestAirport": "Cam Ranh International Airport",
+    "transferType": "car",
+    "transferTimeMinutes": 75,
+    "officialWebsite": "https://www.aman.com/resorts/amanoi",
+    "heroImageUrl": "/resorts/placeholder.jpg",
+    "galleryImageUrls": [],
+    "bookingHint": "Excellent for spa-led escapes, quiet luxury, and nature-focused relaxation.",
+    "tags": ["wellness", "spa", "secluded"],
+    "isAdultsOnly": false,
+    "minStayNights": 2
+  },
+  {
+    "id": "cheval-blanc-randheli",
+    "slug": "cheval-blanc-randheli",
+    "name": "Cheval Blanc Randheli",
+    "country": "Maldives",
+    "region": "Noonu Atoll",
+    "destinationType": "ultra_island",
+    "nightlyPriceLow": 2200,
+    "nightlyPriceHigh": 4200,
+    "currency": "GBP",
+    "priceNotes": "Rates vary by villa size and meal plan.",
+    "packageOptions": [
+      {
+        "type": "breakfast",
+        "label": "Breakfast included",
+        "description": "Daily breakfast included."
+      },
+      {
+        "type": "half_board",
+        "label": "Half board",
+        "description": "Breakfast and dinner included."
+      }
+    ],
+    "peakSeasonMonths": [1, 2, 3, 12],
+    "shoulderSeasonMonths": [4, 5, 11],
+    "offPeakSeasonMonths": [6, 7, 8, 9, 10],
+    "seasonNotes": "Winter and early spring are ideal for sunshine; off-peak months can offer better rates.",
+    "flightTimeFromLondonHours": 13,
+    "nearestAirport": "Velana International Airport",
+    "transferType": "seaplane",
+    "transferTimeMinutes": 40,
+    "officialWebsite": "https://www.chevalblanc.com/en/maison/randheli/",
+    "heroImageUrl": "/resorts/placeholder.jpg",
+    "galleryImageUrls": [],
+    "bookingHint": "A strong fit for travellers who want luxury with a sophisticated, fashion-house feel.",
+    "tags": ["designer", "villa", "family_friendly"],
+    "isAdultsOnly": false,
+    "minStayNights": 3
+  },
+  {
+    "id": "six-senses-zighy-bay",
+    "slug": "six-senses-zighy-bay",
+    "name": "Six Senses Zighy Bay",
+    "country": "Oman",
+    "region": "Musandam Peninsula",
+    "destinationType": "luxury_5_star",
+    "nightlyPriceLow": 950,
+    "nightlyPriceHigh": 1600,
+    "currency": "GBP",
+    "priceNotes": "Shorter-haul luxury pricing varies by season and villa type.",
+    "packageOptions": [
+      {
+        "type": "breakfast",
+        "label": "Breakfast included",
+        "description": "Daily breakfast with stay."
+      }
+    ],
+    "peakSeasonMonths": [10, 11, 12, 1, 2, 3, 4],
+    "shoulderSeasonMonths": [5, 9],
+    "offPeakSeasonMonths": [6, 7, 8],
+    "seasonNotes": "Cooler months are generally most comfortable; summer is much hotter.",
+    "flightTimeFromLondonHours": 7,
+    "nearestAirport": "Dubai International Airport",
+    "transferType": "car",
+    "transferTimeMinutes": 120,
+    "officialWebsite": "https://www.sixsenses.com/en/hotels-resorts/middle-east-africa/oman/zighy-bay/",
+    "heroImageUrl": "/resorts/placeholder.jpg",
+    "galleryImageUrls": [],
+    "bookingHint": "A great option for a shorter-haul luxury escape from the UK.",
+    "tags": ["beach", "wellness", "shorter_flight"],
+    "isAdultsOnly": false,
+    "minStayNights": 2
+  },
+  {
+    "id": "four-seasons-bora-bora",
+    "slug": "four-seasons-bora-bora",
+    "name": "Four Seasons Resort Bora Bora",
+    "country": "French Polynesia",
+    "region": "Bora Bora",
+    "destinationType": "ultra_island",
+    "nightlyPriceLow": 1800,
+    "nightlyPriceHigh": 3200,
+    "currency": "GBP",
+    "priceNotes": "Premium overwater and beachfront villa pricing varies by season, suite type, and included meal plan.",
+    "packageOptions": [
+      {
+        "type": "room_only",
+        "label": "Room only",
+        "description": "Flexible rate for suite and villa stays."
+      },
+      {
+        "type": "breakfast",
+        "label": "Breakfast included",
+        "description": "Daily breakfast included on selected rates."
+      }
+    ],
+    "peakSeasonMonths": [5, 6, 7, 8, 9, 10],
+    "shoulderSeasonMonths": [4, 11],
+    "offPeakSeasonMonths": [1, 2, 3, 12],
+    "seasonNotes": "The drier middle part of the year is especially popular; wetter months can still be appealing with warmer value windows.",
+    "flightTimeFromLondonHours": 22,
+    "nearestAirport": "Bora Bora Airport",
+    "transferType": "boat",
+    "transferTimeMinutes": 15,
+    "officialWebsite": "https://www.fourseasons.com/borabora/",
+    "heroImageUrl": "/resorts/placeholder.jpg",
+    "galleryImageUrls": [],
+    "bookingHint": "A benchmark Bora Bora option for iconic overwater luxury and polished family-friendly service.",
+    "tags": ["overwater", "lagoon", "family_friendly"],
+    "isAdultsOnly": false,
+    "minStayNights": 3
+  },
+  {
+    "id": "st-regis-bora-bora",
+    "slug": "st-regis-bora-bora",
+    "name": "The St. Regis Bora Bora Resort",
+    "country": "French Polynesia",
+    "region": "Bora Bora",
+    "destinationType": "ultra_island",
+    "nightlyPriceLow": 1700,
+    "nightlyPriceHigh": 3000,
+    "currency": "GBP",
+    "priceNotes": "Rates depend on villa category, seasonality, and bundled inclusions.",
+    "packageOptions": [
+      {
+        "type": "room_only",
+        "label": "Room only",
+        "description": "Flexible luxury villa rate."
+      },
+      {
+        "type": "breakfast",
+        "label": "Breakfast included",
+        "description": "Breakfast included on selected packages."
+      }
+    ],
+    "peakSeasonMonths": [5, 6, 7, 8, 9, 10],
+    "shoulderSeasonMonths": [4, 11],
+    "offPeakSeasonMonths": [1, 2, 3, 12],
+    "seasonNotes": "Drier months are most sought-after; quieter months can offer softer pricing without losing the Bora Bora appeal.",
+    "flightTimeFromLondonHours": 22,
+    "nearestAirport": "Bora Bora Airport",
+    "transferType": "boat",
+    "transferTimeMinutes": 20,
+    "officialWebsite": "https://www.marriott.com/en-us/hotels/bobxr-the-st-regis-bora-bora-resort/overview/",
+    "heroImageUrl": "/resorts/placeholder.jpg",
+    "galleryImageUrls": [],
+    "bookingHint": "A strong pick for classic Bora Bora glamour, spacious villas, and special-occasion stays.",
+    "tags": ["overwater", "romantic", "butler_service"],
+    "isAdultsOnly": false,
+    "minStayNights": 3
+  },
+  {
+    "id": "the-brando",
+    "slug": "the-brando",
+    "name": "The Brando",
+    "country": "French Polynesia",
+    "region": "Tetiaroa",
+    "destinationType": "ultra_island",
+    "nightlyPriceLow": 3200,
+    "nightlyPriceHigh": 5200,
+    "currency": "GBP",
+    "priceNotes": "Ultra-premium private-island pricing reflects villa category, inclusions, and the rarity of the property.",
+    "packageOptions": [
+      {
+        "type": "all_inclusive",
+        "label": "All inclusive",
+        "description": "Meals, drinks, and selected experiences included on many stays."
+      },
+      {
+        "type": "villa_package",
+        "label": "Villa package",
+        "description": "Private villa stay with curated resort inclusions."
+      }
+    ],
+    "peakSeasonMonths": [5, 6, 7, 8, 9, 10],
+    "shoulderSeasonMonths": [4, 11],
+    "offPeakSeasonMonths": [1, 2, 3, 12],
+    "seasonNotes": "The drier season is the most popular; shoulder periods may offer a better balance of weather and availability.",
+    "flightTimeFromLondonHours": 21,
+    "nearestAirport": "Faa'a International Airport",
+    "transferType": "boat",
+    "transferTimeMinutes": 20,
+    "officialWebsite": "https://thebrando.com/",
+    "heroImageUrl": "/resorts/placeholder.jpg",
+    "galleryImageUrls": [],
+    "bookingHint": "Best for travellers seeking private-island seclusion, prestige, and a true flagship Tahiti-area experience.",
+    "tags": ["private_island", "all_inclusive", "eco_luxury"],
+    "isAdultsOnly": false,
+    "minStayNights": 3
+  }
+]
