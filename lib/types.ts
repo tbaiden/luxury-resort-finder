@@ -40,10 +40,12 @@ export interface Resort {
   transferTimeMinutes: number;
 
   officialWebsite: string;
-  heroImageUrl: string;
+  heroImageUrl?: string;
+  cardImageUrl?: string;
   galleryImageUrls: string[];
 
   bookingHint: string;
+  tagline?: string;
   tags: string[];
   isAdultsOnly: boolean;
   minStayNights: number | null;
