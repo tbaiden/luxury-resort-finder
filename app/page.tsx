@@ -1,13 +1,81 @@
-"use client";
+﻿"use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { getAllResorts } from "../lib/resorts";
+import type { Resort } from "../lib/types";
 
 const APP_PASSWORD = "S3yche11es!";
 
+const destinationTypeLabels: Record<string, string> = {
+  ultra_island: "Ultra Island",
+  luxury_5_star: "Luxury 5-Star",
+};
+
+const cardImageFallbacksBySlug: Record<string, string> = {
+  "soneva-jani": "/resorts/soneva-jani.jpg",
+  "north-island-seychelles": "/resorts/north-island-seychelles.jpg",
+  amanoi: "/resorts/amanoi.jpg",
+  "cheval-blanc-randheli": "/resorts/cheval-blanc-randheli.jpg",
+  "six-senses-zighy-bay": "/resorts/six-senses-zighy-bay.jpg",
+  "four-seasons-bora-bora": "/resorts/four-seasons-bora-bora.jpg",
+  "st-regis-bora-bora": "/resorts/st-regis-bora-bora.jpg",
+  "the-brando": "/resorts/the-brando.jpg",
+};
+
+const cardImageFallbacksByCountry: Record<string, string> = {
+  maldives: "/resorts/maldives.jpg",
+  seychelles: "/resorts/seychelles.jpg",
+  vietnam: "/resorts/vietnam.jpg",
+  oman: "/resorts/oman.jpg",
+  "french polynesia": "/resorts/french-polynesia.jpg",
+};
+
+function getTypeLabel(type: string) {
+  return destinationTypeLabels[type] ?? type.replace(/_/g, " ");
+}
+
+function getMonthName(month: number) {
+  return new Date(0, month - 1).toLocaleString("default", { month: "long" });
+}
+
+function getFallbackImage(resort: Resort): string {
+  return (
+    cardImageFallbacksBySlug[resort.slug] ||
+    cardImageFallbacksByCountry[resort.country.toLowerCase()] ||
+    `/resorts/${resort.slug}.jpg`
+  );
+}
+
+function getCardImage(resort: Resort): string {
+  return resort.cardImageUrl || resort.heroImageUrl || getFallbackImage(resort);
+}
+
+function getHeroImage(resort?: Resort): string {
+  return resort?.heroImageUrl || resort?.cardImageUrl || "/resorts/hero.jpg";
+}
+
+function getDescriptor(resort: Resort) {
+  if (resort.tagline) return resort.tagline;
+  if (resort.tags.includes("private_island")) return "Private island seclusion";
+  if (resort.tags.includes("overwater")) return "Overwater villa retreat";
+  if (resort.tags.includes("wellness")) return "Wellness sanctuary";
+  if (resort.tags.includes("romantic")) return "Romantic barefoot luxury";
+  return resort.bookingHint?.split(".")[0] || "Exceptional service and privacy";
+}
+
+const curatedChips = [
+  "Romance",
+  "Private island",
+  "Under 6 hours flight",
+  "Best in winter sun",
+  "Ultra-luxury",
+];
+
 export default function HomePage() {
   const resorts = getAllResorts();
+  const heroImage = getHeroImage(resorts[0]);
 
   const [enteredPassword, setEnteredPassword] = useState("");
   const [isUnlocked, setIsUnlocked] = useState(false);
@@ -53,77 +121,16 @@ export default function HomePage() {
 
   if (!isUnlocked) {
     return (
-      <main
-        style={{
-          minHeight: "100vh",
-          background: "linear-gradient(180deg, #f8f1e7 0%, #efe5d8 100%)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "24px",
-          fontFamily: "Arial, sans-serif",
-        }}
-      >
-        <div
-          style={{
-            width: "100%",
-            maxWidth: "460px",
-            backgroundColor: "#ffffff",
-            borderRadius: "20px",
-            padding: "32px",
-            boxShadow: "0 20px 50px rgba(0,0,0,0.12)",
-            border: "1px solid #eadfce",
-          }}
-        >
-          <p
-            style={{
-              margin: "0 0 10px 0",
-              fontSize: "12px",
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "#8a7f73",
-              fontWeight: 700,
-            }}
-          >
-            Private preview
+      <main className="preview-page">
+        <div className="preview-card">
+          <p className="preview-eyebrow">PRIVATE PREVIEW</p>
+          <h1 className="preview-title">Luxury Resort Finder</h1>
+          <p className="preview-copy">
+            Enter the preview password to access the private shortlist.
           </p>
 
-          <h1
-            style={{
-              margin: "0 0 12px 0",
-              fontSize: "34px",
-              lineHeight: 1.1,
-              color: "#1f1a17",
-            }}
-          >
-            Luxury Resort Finder
-          </h1>
-
-          <p
-            style={{
-              margin: "0 0 24px 0",
-              fontSize: "16px",
-              lineHeight: 1.6,
-              color: "#5f5a55",
-            }}
-          >
-            This preview is password protected while the app is still being refined.
-          </p>
-
-          <form onSubmit={handleUnlock}>
-            <label
-              htmlFor="password"
-              style={{
-                display: "block",
-                marginBottom: "8px",
-                fontSize: "14px",
-                fontWeight: 600,
-                color: "#2a2521",
-              }}
-            >
-              Enter password
-            </label>
-
+          <form className="preview-form" onSubmit={handleUnlock}>
+            <label htmlFor="password">Enter password</label>
             <input
               id="password"
               type="password"
@@ -132,43 +139,11 @@ export default function HomePage() {
                 setEnteredPassword(e.target.value);
                 if (passwordError) setPasswordError("");
               }}
-              style={{
-                width: "100%",
-                padding: "14px 16px",
-                borderRadius: "12px",
-                border: "1px solid #d8cfc3",
-                fontSize: "16px",
-                marginBottom: "14px",
-                outline: "none",
-              }}
             />
 
-            {passwordError ? (
-              <p
-                style={{
-                  margin: "0 0 14px 0",
-                  fontSize: "14px",
-                  color: "#b42318",
-                }}
-              >
-                {passwordError}
-              </p>
-            ) : null}
+            {passwordError ? <p className="preview-error">{passwordError}</p> : null}
 
-            <button
-              type="submit"
-              style={{
-                width: "100%",
-                padding: "14px 16px",
-                borderRadius: "12px",
-                border: "none",
-                backgroundColor: "#1f6f78",
-                color: "#ffffff",
-                fontSize: "16px",
-                fontWeight: 700,
-                cursor: "pointer",
-              }}
-            >
+            <button type="submit" className="btn btn-primary">
               Enter preview
             </button>
           </form>
@@ -178,131 +153,177 @@ export default function HomePage() {
   }
 
   return (
-    <div
-      style={{
-        fontFamily: "Arial, sans-serif",
-        maxWidth: "1200px",
-        margin: "0 auto",
-        padding: "20px",
-      }}
-    >
-      <div style={{ textAlign: "center", marginBottom: "40px" }}>
-        <h1 style={{ fontSize: "48px", marginBottom: "20px" }}>Luxury Resort Finder</h1>
-        <p style={{ fontSize: "18px", color: "#666" }}>
-          Discover the world's most exclusive resorts tailored to your preferences.
-        </p>
-      </div>
-
-      <div
+    <main>
+      <section
+        className="hero-section"
         style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "20px",
-          marginBottom: "40px",
-          justifyContent: "center",
+          backgroundImage: `linear-gradient(180deg, rgba(21, 19, 16, 0.24), rgba(21, 19, 16, 0.72)), url('${heroImage}')`,
         }}
       >
-        <div>
-          <label style={{ display: "block", marginBottom: "5px" }}>Resort Type:</label>
-          <select
-            value={resortType}
-            onChange={(e) => setResortType(e.target.value)}
-            style={{ padding: "8px", border: "1px solid #ccc", borderRadius: "4px" }}
-          >
-            <option value="all">All</option>
-            <option value="ultra_island">Ultra Island</option>
-            <option value="luxury_5_star">Luxury 5 Star</option>
-          </select>
-        </div>
-
-        <div>
-          <label style={{ display: "block", marginBottom: "5px" }}>Max Flight Time (hours):</label>
-          <input
-            type="number"
-            value={maxFlightTime}
-            onChange={(e) => setMaxFlightTime(e.target.value)}
-            style={{ padding: "8px", border: "1px solid #ccc", borderRadius: "4px" }}
-          />
-        </div>
-
-        <div>
-          <label style={{ display: "block", marginBottom: "5px" }}>Budget (max nightly):</label>
-          <input
-            type="text"
-            inputMode="numeric"
-            value={budgetInput}
-            onChange={(e) => {
-              const digitsOnly = e.target.value.replace(/[^\d]/g, "");
-              setBudgetInput(digitsOnly);
-            }}
-            style={{ padding: "8px", border: "1px solid #ccc", borderRadius: "4px" }}
-          />
-        </div>
-
-        <div>
-          <label style={{ display: "block", marginBottom: "5px" }}>Travel Month:</label>
-          <select
-            value={travelMonth}
-            onChange={(e) => setTravelMonth(e.target.value)}
-            style={{ padding: "8px", border: "1px solid #ccc", borderRadius: "4px" }}
-          >
-            {Array.from({ length: 12 }, (_, i) => (
-              <option key={i + 1} value={i + 1}>
-                {new Date(0, i).toLocaleString("default", { month: "long" })}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-          gap: "20px",
-        }}
-      >
-        {filteredResorts.map((resort) => (
-          <Link
-            key={resort.id}
-            href={`/resort/${resort.slug}`}
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            <div
-              style={{
-                border: "1px solid #ddd",
-                borderRadius: "8px",
-                overflow: "hidden",
-                boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-                cursor: "pointer",
-                backgroundColor: "#fff",
-              }}
+        <div className="hero-content">
+          <p className="hero-eyebrow">PRIVATE PREVIEW</p>
+          <h1 className="hero-heading">
+            Private islands, overwater villas, and barefoot luxury — matched to how you want to travel.
+          </h1>
+          <p className="hero-copy">
+            A curated finder for extraordinary resorts across the Maldives, Seychelles, and beyond.
+          </p>
+          <div className="hero-actions">
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => document.getElementById("filters")?.scrollIntoView({ behavior: "smooth" })}
             >
-              <img
-                src={resort.heroImageUrl}
-                alt={resort.name}
-                style={{ width: "100%", height: "200px", objectFit: "cover", display: "block" }}
-                onError={(e) => {
-                  const target = e.currentTarget as HTMLImageElement;
-                  target.onerror = null;
-                  target.src =
-                    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Crect fill='%23e5e5e5' width='300' height='200'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='16' fill='%23999' text-anchor='middle' dominant-baseline='middle'%3EImage unavailable%3C/text%3E%3C/svg%3E";
+              Start exploring
+            </button>
+            <a href="#featured-resorts" className="btn btn-secondary">
+              Browse featured resorts
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="filter-section" id="filters">
+        <div className="filter-panel">
+          <p className="filter-helper">Refine by stay style, travel time, budget, and season.</p>
+
+          <div className="filter-grid">
+            <div className="filter-field">
+              <label className="filter-label" htmlFor="resortType">
+                Stay style
+              </label>
+              <select
+                id="resortType"
+                className="filter-control"
+                value={resortType}
+                onChange={(e) => setResortType(e.target.value)}
+              >
+                <option value="all">All stays</option>
+                <option value="ultra_island">Ultra Island</option>
+                <option value="luxury_5_star">Luxury 5-Star</option>
+              </select>
+            </div>
+
+            <div className="filter-field">
+              <label className="filter-label" htmlFor="flightTime">
+                Max flight time
+              </label>
+              <input
+                id="flightTime"
+                className="filter-control"
+                type="number"
+                min="1"
+                value={maxFlightTime}
+                onChange={(e) => setMaxFlightTime(e.target.value)}
+              />
+            </div>
+
+            <div className="filter-field">
+              <label className="filter-label" htmlFor="budget">
+                Budget, max nightly
+              </label>
+              <input
+                id="budget"
+                className="filter-control"
+                type="text"
+                inputMode="numeric"
+                value={budgetInput}
+                onChange={(e) => {
+                  const digitsOnly = e.target.value.replace(/[^\d]/g, "");
+                  setBudgetInput(digitsOnly);
                 }}
               />
-
-              <div style={{ padding: "15px" }}>
-                <h3 style={{ margin: "0 0 10px 0", fontSize: "20px" }}>{resort.name}</h3>
-                <p style={{ margin: "0", color: "#666" }}>
-                  {resort.country}, {resort.region}
-                </p>
-                <p style={{ margin: "5px 0 0 0", fontSize: "14px" }}>
-                  From £{resort.nightlyPriceLow} per night
-                </p>
-              </div>
             </div>
-          </Link>
+
+            <div className="filter-field">
+              <label className="filter-label" htmlFor="travelMonth">
+                Travel month
+              </label>
+              <select
+                id="travelMonth"
+                className="filter-control"
+                value={travelMonth}
+                onChange={(e) => setTravelMonth(e.target.value)}
+              >
+                {Array.from({ length: 12 }, (_, index) => (
+                  <option key={index + 1} value={index + 1}>
+                    {getMonthName(index + 1)}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="intro-section">
+        <p className="section-eyebrow">CURATED COLLECTION</p>
+        <h2 className="section-heading">A shortlist of exceptional stays</h2>
+        <p className="section-copy">
+          Each resort is selected for privacy, design, service, and sense of place.
+        </p>
+      </section>
+
+      <div className="curated-strip">
+        {curatedChips.map((chip) => (
+          <span key={chip} className="curated-chip">
+            {chip}
+          </span>
         ))}
       </div>
-    </div>
+
+      <section className="resort-grid-section" id="featured-resorts">
+        <div className="resort-grid-header">
+          <p className="resort-grid-count">{filteredResorts.length} resorts matched</p>
+        </div>
+
+        <div className="resort-grid">
+          {filteredResorts.map((resort) => (
+            <article key={resort.id} className="resort-card">
+              <Link href={`/resort/${resort.slug}`} className="resort-card__touchable">
+                <div className="resort-card__image">
+                  <Image
+                    src={getCardImage(resort)}
+                    alt={resort.name}
+                    fill
+                    sizes="(max-width: 700px) 100vw, 33vw"
+                    className="resort-card__image-img"
+                    onError={(event) => {
+                      const target = event.currentTarget as HTMLImageElement;
+                      if (target.src !== getFallbackImage(resort)) {
+                        target.src = getFallbackImage(resort);
+                      }
+                    }}
+                  />
+                  <span className="resort-card__type">{getTypeLabel(resort.destinationType)}</span>
+                </div>
+                <div className="resort-card__content">
+                  <p className="resort-card__meta">
+                    {resort.region}, {resort.country}
+                  </p>
+                  <h3 className="resort-card__title">{resort.name}</h3>
+                  <p className="resort-card__descriptor">{getDescriptor(resort)}</p>
+                  <div className="resort-card__details">
+                    <span>From £{resort.nightlyPriceLow}</span>
+                    <span>{resort.flightTimeFromLondonHours} hours from London</span>
+                  </div>
+                </div>
+              </Link>
+              <div className="resort-card__actions">
+                <span className="card-link">Explore resort</span>
+                <a
+                  className="card-external"
+                  href={resort.officialWebsite}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Open official resort site
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    </main>
   );
 }
