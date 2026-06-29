@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getAllResorts } from "../lib/resorts";
 import type { Resort } from "../lib/types";
 
@@ -32,6 +32,8 @@ const cardImageFallbacksByCountry: Record<string, string> = {
   "french polynesia": "/resorts/french-polynesia.jpg",
 };
 
+const homepageHeroImageCandidates = ["/resorts/placeholder.jpg", "/resorts/luxury-hero-photo.jpg"] as const;
+
 function getTypeLabel(type: string) {
   return destinationTypeLabels[type] ?? type.replace(/_/g, " ");
 }
@@ -52,8 +54,10 @@ function getCardImage(resort: Resort): string {
   return resort.cardImageUrl || resort.heroImageUrl || getFallbackImage(resort);
 }
 
-function getHeroImage(resort?: Resort): string {
-  return resort?.heroImageUrl || resort?.cardImageUrl || "/resorts/hero.jpg";
+function getHeroBackgroundImage(heroImage: string | null) {
+  return heroImage
+    ? `linear-gradient(180deg, rgba(21, 19, 16, 0.24), rgba(21, 19, 16, 0.72)), url('${heroImage}')`
+    : `linear-gradient(180deg, rgba(21, 19, 16, 0.24), rgba(21, 19, 16, 0.72))`;
 }
 
 function getDescriptor(resort: Resort) {
@@ -75,11 +79,42 @@ const curatedChips = [
 
 export default function HomePage() {
   const resorts = getAllResorts();
-  const heroImage = getHeroImage(resorts[0]);
 
+  const [heroImage, setHeroImage] = useState<string | null>(homepageHeroImageCandidates[0]);
   const [enteredPassword, setEnteredPassword] = useState("");
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [passwordError, setPasswordError] = useState("");
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const tryLoadNext = (index: number) => {
+      if (!isMounted) return;
+
+      const candidate = homepageHeroImageCandidates[index];
+      if (!candidate) {
+        setHeroImage(null);
+        return;
+      }
+
+      const image = new window.Image();
+      image.onload = () => {
+        if (isMounted) {
+          setHeroImage(candidate);
+        }
+      };
+      image.onerror = () => {
+        tryLoadNext(index + 1);
+      };
+      image.src = candidate;
+    };
+
+    tryLoadNext(0);
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const [resortType, setResortType] = useState("all");
   const [maxFlightTime, setMaxFlightTime] = useState("24");
@@ -89,6 +124,8 @@ export default function HomePage() {
   const parsedMaxFlightTime = Number(maxFlightTime) || 24;
   const parsedBudget = Number(budgetInput) || 10000;
   const parsedTravelMonth = Number(travelMonth) || 1;
+
+  const heroBackgroundImage = getHeroBackgroundImage(heroImage);
 
   const filteredResorts = useMemo(() => {
     return resorts.filter((resort) => {
@@ -157,7 +194,7 @@ export default function HomePage() {
       <section
         className="hero-section"
         style={{
-          backgroundImage: `linear-gradient(180deg, rgba(21, 19, 16, 0.24), rgba(21, 19, 16, 0.72)), url('${heroImage}')`,
+          backgroundImage: heroBackgroundImage,
         }}
       >
         <div className="hero-content">
