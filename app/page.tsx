@@ -1,8 +1,8 @@
 ﻿"use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import ResortCardImage from "./components/ResortCardImage";
 import { getAllResorts } from "../lib/resorts";
 import type { Resort } from "../lib/types";
 
@@ -13,45 +13,29 @@ const destinationTypeLabels: Record<string, string> = {
   luxury_5_star: "Luxury 5-Star",
 };
 
-const cardImageFallbacksBySlug: Record<string, string> = {
-  "soneva-jani": "/resorts/soneva-jani.jpg",
-  "north-island-seychelles": "/resorts/north-island-seychelles.jpg",
-  amanoi: "/resorts/amanoi.jpg",
-  "cheval-blanc-randheli": "/resorts/cheval-blanc-randheli.jpg",
-  "six-senses-zighy-bay": "/resorts/six-senses-zighy-bay.jpg",
-  "four-seasons-bora-bora": "/resorts/four-seasons-bora-bora.jpg",
-  "st-regis-bora-bora": "/resorts/st-regis-bora-bora.jpg",
-  "the-brando": "/resorts/the-brando.jpg",
-};
-
-const cardImageFallbacksByCountry: Record<string, string> = {
-  maldives: "/resorts/maldives.jpg",
-  seychelles: "/resorts/seychelles.jpg",
-  vietnam: "/resorts/vietnam.jpg",
-  oman: "/resorts/oman.jpg",
-  "french polynesia": "/resorts/french-polynesia.jpg",
-};
-
-const homepageHeroImageCandidates = ["/resorts/placeholder.jpg", "/resorts/luxury-hero-photo.jpg"] as const;
+const homepageHeroImageCandidates = [
+  "/resorts/luxury-hero-photo.jpg",
+  "/resorts/placeholder.jpg",
+] as const;
 
 function getTypeLabel(type: string) {
   return destinationTypeLabels[type] ?? type.replace(/_/g, " ");
 }
 
+function getCountryClass(country: string) {
+  const key = country.toLowerCase();
+  const map: Record<string, string> = {
+    maldives: "maldives",
+    seychelles: "seychelles",
+    oman: "oman",
+    vietnam: "vietnam",
+    "french polynesia": "polynesia",
+  };
+  return map[key] || key.replace(/\s+/g, "-");
+}
+
 function getMonthName(month: number) {
   return new Date(0, month - 1).toLocaleString("default", { month: "long" });
-}
-
-function getFallbackImage(resort: Resort): string {
-  return (
-    cardImageFallbacksBySlug[resort.slug] ||
-    cardImageFallbacksByCountry[resort.country.toLowerCase()] ||
-    `/resorts/${resort.slug}.jpg`
-  );
-}
-
-function getCardImage(resort: Resort): string {
-  return resort.cardImageUrl || resort.heroImageUrl || getFallbackImage(resort);
 }
 
 function getHeroBackgroundImage(heroImage: string | null) {
@@ -80,7 +64,7 @@ const curatedChips = [
 export default function HomePage() {
   const resorts = getAllResorts();
 
-  const [heroImage, setHeroImage] = useState<string | null>(homepageHeroImageCandidates[0]);
+  const [heroImage, setHeroImage] = useState<string | null>(null);
   const [enteredPassword, setEnteredPassword] = useState("");
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [passwordError, setPasswordError] = useState("");
@@ -99,9 +83,7 @@ export default function HomePage() {
 
       const image = new window.Image();
       image.onload = () => {
-        if (isMounted) {
-          setHeroImage(candidate);
-        }
+        if (isMounted) setHeroImage(candidate);
       };
       image.onerror = () => {
         tryLoadNext(index + 1);
@@ -316,22 +298,10 @@ export default function HomePage() {
 
         <div className="resort-grid">
           {filteredResorts.map((resort) => (
-            <article key={resort.id} className="resort-card">
+            <article key={resort.id} className={`resort-card ${getCountryClass(resort.country)}`}>
               <Link href={`/resort/${resort.slug}`} className="resort-card__touchable">
                 <div className="resort-card__image">
-                  <Image
-                    src={getCardImage(resort)}
-                    alt={resort.name}
-                    fill
-                    sizes="(max-width: 700px) 100vw, 33vw"
-                    className="resort-card__image-img"
-                    onError={(event) => {
-                      const target = event.currentTarget as HTMLImageElement;
-                      if (target.src !== getFallbackImage(resort)) {
-                        target.src = getFallbackImage(resort);
-                      }
-                    }}
-                  />
+                  <ResortCardImage resort={resort} />
                   <span className="resort-card__type">{getTypeLabel(resort.destinationType)}</span>
                 </div>
                 <div className="resort-card__content">
