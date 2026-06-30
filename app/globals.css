@@ -389,7 +389,7 @@ select {
 }
 
 .resort-card.polynesia .resort-card__image-inner::after {
-  background: linear-gradient(180deg, rgba(18, 105, 175, 0.14), rgba(6, 34, 76, 0.30));
+  background: linear-gradient(180deg, rgba(80, 50, 20, 0.04), rgba(20, 10, 10, 0.20));
   opacity: 1;
 }
 
