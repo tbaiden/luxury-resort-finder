@@ -63,17 +63,27 @@ select {
   color: #ffffff;
 }
 
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
 .hero-section::before {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, rgba(21, 19, 16, 0.26), rgba(21, 19, 16, 0.72));
   pointer-events: none;
+  z-index: 1;
 }
 
 .hero-content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   max-width: 1120px;
   margin: 0 auto;
   padding: 88px 24px 36px;
